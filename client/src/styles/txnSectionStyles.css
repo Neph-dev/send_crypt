@@ -1,0 +1,122 @@
+#txnSection {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    width: 100%;
+
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.txnSection-cards-container {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100;
+}
+
+.txnSection-card {
+    display: flex;
+    cursor: context-menu;
+    align-items: center;
+    background-color: #e5e4e2;
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    height: 150px;
+    width: 245px;
+}
+
+.txnSection-card-account {
+    color: #54626f;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.txnSection-card-name {
+    bottom: 0;
+    color: #b2beb5;
+    font-size: 10px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    position: absolute;
+}
+
+.txn-title {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.input-txn-container {
+    align-items: center;
+    background: transparent;
+    display: flex;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1.5px #b2beb5 solid;
+    border-radius: 5px;
+    outline: none;
+    width: 100%;
+}
+
+.input-txn-label {
+    color: #d3d3d3;
+    font-size: 12px;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-transform: uppercase;
+}
+
+.input-txn {
+    background: transparent;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: transparent;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    width: 85%;
+}
+
+.txn-send-btn {
+    align-items: center;
+    background-color: transparent;
+    border: 0;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    height: 40px;
+    transition: transform .2s;
+    width: 100px;
+}
+
+.txn-send-btn:hover {
+    transform: scale(1.1);
+}
+
+.btn-label {
+    color: #fff
+}

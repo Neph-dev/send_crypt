@@ -1,0 +1,43 @@
+#header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.header-container {
+    align-items: center;
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.header-avatar {
+    background-color: #ccc;
+    border: 2px solid #fff;
+    border-radius: 200px;
+    height: 45px;
+    width: 45px;
+}
+
+.header-username {
+    font-size: 14px;
+    color: #fff;
+    margin-left: 10px;
+}
+
+.header-logoff {
+    margin-right: 20px;
+    transition: transform .2s;
+}
+
+.header-logoff:hover {
+    transform: scale(1.1);
+}

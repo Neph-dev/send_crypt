@@ -1,0 +1,98 @@
+#login-page {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(to top, #d5d5d5, #fff);
+}
+
+#login-form {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 450px;
+    height: 550px;
+    margin: auto;
+    position: relative;
+    right: 0;
+    top: 0;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.login-mainLogo-container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.login-mainLogo {
+    border-radius: 110px;
+    height: 150px;
+    width: 150px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.login-form-container {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.login-inputs {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.login-input-label {
+    font-size: 14px;
+    color: #252525;
+    position: absolute;
+    background-color: #fff;
+    margin-left: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    align-items: center;
+}
+
+.login-input {
+    width: 100%;
+    border: 0.5px solid #ccc;
+    border-radius: 5px;
+    height: 35px;
+    outline-color: #2294e0;
+    font-size: 16px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 12px;
+}
+
+.login-med-centered-text {
+    color: #000;
+    cursor: context-menu;
+    text-align: center;
+    font-size: 14px;
+}
+
+.login-med-centered-text:hover {
+    color: #6dadd8;
+    text-decoration: underline;
+}
+
+.login-failed-msg {
+    text-align: center;
+    color: red;
+    font-size: 12
+}

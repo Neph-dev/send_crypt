@@ -1,0 +1,40 @@
+input:-webkit-autofill {
+    background-color: transparent !important;
+    -webkit-box-shadow: 0 0 0 50px white inset;
+}
+
+.medium-separator {
+    width: 100%;
+    height: 4vh;
+}
+
+.small-separator {
+    width: 100%;
+    height: 2vh;
+}
+
+.copy-icon {
+    cursor: pointer;
+    transition: transform .2s;
+}
+
+.copy-icon:hover {
+    transform: scale(1.1);
+}
+
+.send-button {
+    border-radius: 5px;
+    background-color: #252525;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    height: 45px;
+    outline-style: 0;
+    outline-color: '#fff';
+    width: 100%;
+}
+
+.send-button:hover {
+    background-color: #3b3c36;
+}

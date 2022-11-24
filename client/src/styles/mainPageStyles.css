@@ -1,0 +1,10 @@
+#main-page {
+    background: #36454f;
+    /* background: #004242; */
+    width: 100%;
+    min-height: 100vh;
+}
+
+.main-upper-section {
+    width: 100%;
+}

@@ -1,0 +1,88 @@
+#registerUser {
+    align-items: center;
+    background: linear-gradient(to top, #d5d5d5, #fff);
+    display: flex;
+    flex-wrap: wrap;
+    height: 100vh;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.register-select-avatar-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
+    height: 100%;
+}
+
+.register-selected-avatar {
+    background-color: #b2beb5;
+    border-radius: 30px;
+    height: 200px;
+    width: 200px;
+}
+
+.register-avatar-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.register-avatar-element {
+    background-color: #b2beb5;
+    border-radius: 15px;
+    height: 80px;
+    margin-right: 20px;
+    width: 80px;
+}
+
+
+.register-inputs-container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 45%;
+}
+
+.register-input-container {
+    align-items: center;
+    background: transparent;
+    display: flex;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1.5px #b2beb5 solid;
+    border-radius: 5px;
+    outline: none;
+    width: 100%;
+}
+
+.register-input-label {
+    color: #b2beb5;
+    /* color: #3b3c36; */
+    font-size: 14px;
+    margin-left: 10px;
+    text-transform: uppercase;
+}
+
+.register-input {
+    background: transparent;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: transparent;
+    border-radius: 10px;
+    color: #010203;
+    font-weight: bold;
+    font-size: 14px;
+    outline: none;
+    width: 70%
+}
+
+.register-confirmation-msg {
+    align-items: center;
+    display: flex;
+    text-align: center;
+    color: #a4c639;
+    font-size: 12
+}
