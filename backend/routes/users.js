@@ -5,6 +5,7 @@ const nodemailer = require('nodemailer')
 
 let User = require('../models/user.model')
 let Password = require('../models/password.model')
+let checkForUsernameConformity = require('../utils/checkForUsernameConformity')
 
 require('dotenv').config()
 
@@ -66,20 +67,13 @@ router.route('/getAdmin').get((req, res) => {
 // * Send the generated password to the user's email address.
 router.route('/add').post((req, res) => {
 
-    const checkForUsernameConformity = () => {
-        if ((req.body.username.toUpperCase()).slice(0, 3) === 'NF_') {
-            return req.body.username.toUpperCase()
-        }
-        else return 'NF_' + req.body.username.toUpperCase()
-    }
-
     const plainTextPassword = generator.generate({ length: 10, numbers: true })
     const saltRounds = 10
 
     bcrypt.hash(plainTextPassword, saltRounds)
         .then((hash) => {
 
-            const username = checkForUsernameConformity()
+            const username = checkForUsernameConformity(req)
             const avatar = req.body.avatar
             const email = req.body.email
             const status = 1

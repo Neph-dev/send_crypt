@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 
 let User = require('../models/user.model')
 let Password = require('../models/password.model')
+let checkForUsernameConformity = require('../utils/checkForUsernameConformity')
 
 
 // * Check if the username exists,
@@ -11,7 +12,8 @@ let Password = require('../models/password.model')
 // * If password is correct, return user information.
 // * Else, return error message.
 router.route('/login').post((req, res) => {
-    User.findOne({ username: (req.body.username)?.toUpperCase() })
+
+    User.findOne({ username: checkForUsernameConformity(req) })
         .then((user) => {
             if (user === null) {
                 res.json({

@@ -111,7 +111,7 @@ const TxnSection = ({ ...props }) => {
                             }}
                             className='copy-icon'
                             size={20}
-                            color={'#fff'} />
+                            color={inputs?.fromAddress === '' ? '#d3d3d3' : '#fff'} />
                         :
                         <AiFillCheckCircle
                             onClick={() => {

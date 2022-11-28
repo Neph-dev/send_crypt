@@ -71,12 +71,11 @@
     border-left: 0;
     border-right: 0;
     border-bottom: transparent;
-    border-radius: 10px;
     color: #010203;
     font-weight: bold;
     font-size: 14px;
     outline: none;
-    width: 70%
+    width: 70%;
 }
 
 .register-confirmation-msg {

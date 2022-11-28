@@ -1,6 +1,7 @@
 input:-webkit-autofill {
     background-color: transparent !important;
-    -webkit-box-shadow: 0 0 0 50px white inset;
+    -webkit-text-fill-color: #fff;
+    -webkit-box-shadow: 0 0 0 50px #36454f inset;
 }
 
 .medium-separator {
@@ -24,7 +25,8 @@ input:-webkit-autofill {
 
 .send-button {
     border-radius: 5px;
-    background-color: #252525;
+    background-color: #36454f;
+    /* background-color: #252525; */
     border: none;
     color: #fff;
     cursor: pointer;
