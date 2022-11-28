@@ -7,24 +7,21 @@ import { RiSendPlaneFill } from 'react-icons/ri'
 import { FiCopy } from 'react-icons/fi'
 import { AiFillCheckCircle } from 'react-icons/ai'
 
-import { ownerData } from '../Mock'
-
 
 const TxnSection = ({ ...props }) => {
 
-    const [inputs, setInputs] = useState({
-        fromAddress: props.userEthAddress,
-        toAddress: props.adminEthAddress
-    })
-    const [copyToAddress, setCopyToAddress] = useState(false)
-    const [copyFromAddress, setCopyFromAddress] = useState(false)
+    const [copySenderAddress, setCopySenderAddress] = useState(false)
+    const [copyReceiverAddress, setCopyReceiverAddress] = useState(false)
     const [ethAmount, setEthAmount] = useState(0.1)
+
+    let sender_ethAccounts = localStorage.getItem('eth_requestAccounts')
+    let receiver_ethAddress = localStorage.getItem('admin_ethAddress')
 
     const copyToClipboard = (copyText) => {
         copy(copyText)
         setTimeout(() => {
-            setCopyToAddress(false)
-            setCopyFromAddress(false)
+            setCopySenderAddress(false)
+            setCopyReceiverAddress(false)
         }, 3000)
     }
 
@@ -34,10 +31,6 @@ const TxnSection = ({ ...props }) => {
     }
 
     const onChangeEthAmount = (e) => setEthAmount(e.target.value)
-
-    const onChangeFromAddress = (e) => {
-        setInputs({ ...inputs, fromAddress: e.target.value.toUpperCase() })
-    }
 
     const TextAbstract = (text, length) => {
         if (text == null) return ""
@@ -57,14 +50,10 @@ const TxnSection = ({ ...props }) => {
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <FaEthereum size={50} color={'#d3d3d3'} />
                             <div
-                                style={{
-                                    color: (inputs?.fromAddress === ''
-                                        || inputs?.fromAddress === undefined) && '#d3d3d3'
-                                }}
+                                style={{ color: (sender_ethAccounts === undefined) && '#d3d3d3' }}
                                 className='txnSection-card-account'>
-                                {TextAbstract(inputs?.fromAddress, 27)}
-                                {(inputs?.fromAddress === '' || inputs?.fromAddress === undefined) &&
-                                    '0x00000000000000000000'}
+                                {TextAbstract(sender_ethAccounts, 27)}
+                                {(sender_ethAccounts === undefined) && '0x00000000000000000000'}
                             </div>
                         </div>
                         <div className='txnSection-card-name'>
@@ -78,7 +67,7 @@ const TxnSection = ({ ...props }) => {
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <FaEthereum size={50} color={'#d3d3d3'} />
                             <div className='txnSection-card-account'>
-                                {TextAbstract(props.adminEthAddress, 30)}
+                                {TextAbstract(receiver_ethAddress, 30)}
                             </div>
                         </div>
                         <div className='txnSection-card-name'>
@@ -98,25 +87,25 @@ const TxnSection = ({ ...props }) => {
                 <div className='input-txn-container'>
                     <div className='input-txn-label'>From</div>
                     <input
+                        disabled
                         name='fromAddress'
-                        value={inputs?.fromAddress}
-                        onChange={onChangeFromAddress}
+                        value={sender_ethAccounts}
                         className='input-txn'
                         placeholder='0x00000000000000000000' />
-                    {copyFromAddress === false ?
+                    {copyReceiverAddress === false ?
                         <FiCopy
                             onClick={() => {
-                                setCopyFromAddress(true)
-                                copyToClipboard(inputs?.fromAddress)
+                                setCopyReceiverAddress(true)
+                                copyToClipboard(sender_ethAccounts)
                             }}
                             className='copy-icon'
                             size={20}
-                            color={inputs?.fromAddress === '' ? '#d3d3d3' : '#fff'} />
+                            color={sender_ethAccounts === undefined ? '#d3d3d3' : '#fff'} />
                         :
                         <AiFillCheckCircle
                             onClick={() => {
-                                setCopyFromAddress(true)
-                                copyToClipboard(inputs?.fromAddress)
+                                setCopyReceiverAddress(true)
+                                copyToClipboard(sender_ethAccounts)
                             }}
                             className='copy-icon'
                             size={25}
@@ -128,17 +117,17 @@ const TxnSection = ({ ...props }) => {
                 <div className='input-txn-container'>
                     <div className='input-txn-label'>To</div>
                     <input
-                        style={{ color: '#a4c639' }}
                         disabled
-                        name='toAddress'
-                        value={inputs?.toAddress}
+                        name='receiver_ethAddress'
+                        value={receiver_ethAddress}
                         className='input-txn'
+                        style={{ color: '#a4c639' }}
                         placeholder='0x0000000000' />
-                    {copyToAddress === false ?
+                    {copySenderAddress === false ?
                         <FiCopy
                             onClick={() => {
-                                setCopyToAddress(true)
-                                copyToClipboard(ownerData.address)
+                                setCopySenderAddress(true)
+                                copyToClipboard(receiver_ethAddress)
                             }}
                             className='copy-icon'
                             size={20}
@@ -146,8 +135,8 @@ const TxnSection = ({ ...props }) => {
                         :
                         <AiFillCheckCircle
                             onClick={() => {
-                                setCopyToAddress(true)
-                                copyToClipboard(ownerData.address)
+                                setCopySenderAddress(true)
+                                copyToClipboard(receiver_ethAddress)
                             }}
                             className='copy-icon'
                             size={25}

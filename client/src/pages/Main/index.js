@@ -13,15 +13,14 @@ import TxnHistory from '../../components/TxnHistory'
 
 const Main = () => {
 
+    const navigate = useNavigate()
+
     const username = localStorage.getItem('username')
     const adminUsername = localStorage.getItem('admin_username')
-    const adminEthAddress = localStorage.getItem('admin_ethAddress')
-    const userEthAddress = localStorage.getItem('user_ethAddress')
-
-    const navigate = useNavigate()
 
     useEffect(() => {
         if (username === null || username === undefined) navigate('/')
+        // eslint-disable-next-line
     }, [])
 
     return (
@@ -38,12 +37,7 @@ const Main = () => {
             <div className='medium-separator' />
 
             <section className='main-upper-section'>
-                <TxnSection
-                    adminUsername={adminUsername}
-                    adminEthAddress={adminEthAddress}
-                    userEthAddress={userEthAddress}
-                    username={username}
-                    address={userEthAddress} />
+                <TxnSection adminUsername={adminUsername} username={username} />
             </section>
 
             <div className='medium-separator' />

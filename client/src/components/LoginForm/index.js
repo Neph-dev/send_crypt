@@ -44,7 +44,6 @@ const LoginForm = () => {
                     localStorage.setItem('user_id', response?.data?.data?.user?._id)
                     localStorage.setItem('user_avatar', response?.data?.data?.user?.avatar)
                     localStorage.setItem('username', response?.data?.data?.user?.username)
-                    localStorage.setItem('user_ethAddress', response?.data?.data?.user?.ethAddress)
 
                     await axios.get(`${API_URL}users/getAdmin`)
                         .then((response) => {

@@ -79,6 +79,7 @@ const RegisterUser = () => {
                         {avatars?.map((item, index) => (
                             <div key={index}>
                                 <img
+                                    alt=''
                                     style={{ border: 'red' }}
                                     onClick={() => setSelectedAvatar(item?.link)}
                                     src={item?.link}
