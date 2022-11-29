@@ -122,12 +122,34 @@
     width: 100px;
 }
 
-.txn-send-btn:hover {
-    transform: scale(1.1);
-}
-
 .btn-label {
     color: #fff
+}
+
+.txn-sending {
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    animation: flash 3s linear infinite;
+}
+
+@keyframes flash {
+
+    0%,
+    50%,
+    100% {
+        opacity: 1;
+    }
+
+    25%,
+    75% {
+        opacity: 0;
+    }
 }
 
 @media only screen and (max-width: 1090px) {

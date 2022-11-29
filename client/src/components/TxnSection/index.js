@@ -1,20 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import copy from 'copy-to-clipboard'
+import { TextAbstract } from '../../utils/textAbstract'
 
 import '../../styles/txnSectionStyles.css'
 import { FaEthereum, FaLongArrowAltRight } from 'react-icons/fa'
 import { RiSendPlaneFill } from 'react-icons/ri'
 import { FiCopy } from 'react-icons/fi'
 import { AiFillCheckCircle } from 'react-icons/ai'
+import { TxnContext } from '../../contexts/TxnProvider'
 
 
 const TxnSection = ({ ...props }) => {
 
+    const { handleChange, inputData, sendTxn, isLoading } = useContext(TxnContext)
+
     const [copySenderAddress, setCopySenderAddress] = useState(false)
     const [copyReceiverAddress, setCopyReceiverAddress] = useState(false)
-    const [ethAmount, setEthAmount] = useState(0.1)
 
-    let sender_ethAccounts = localStorage.getItem('eth_requestAccounts')
+    let sender_ethAccount = localStorage.getItem('eth_requestAccounts')
     let receiver_ethAddress = localStorage.getItem('admin_ethAddress')
 
     const copyToClipboard = (copyText) => {
@@ -30,31 +33,33 @@ const TxnSection = ({ ...props }) => {
         if (!re.test(e.key)) e.preventDefault()
     }
 
-    const onChangeEthAmount = (e) => setEthAmount(e.target.value)
+    const checkFormValidity = () => {
+        if (!sender_ethAccount || !receiver_ethAddress || !inputData.ethAmount) return false
+        else return true
+    }
 
-    const TextAbstract = (text, length) => {
-        if (text == null) return ""
+    const handleSubmit = (e) => {
+        e.preventDefault()
 
-        if (text.length <= length) return text
+        if (!sender_ethAccount || !receiver_ethAddress || !inputData.ethAmount) return
 
-        text = text.substring(0, length)
-        return text + "..."
+        sendTxn()
     }
 
     return (
         <div id='txnSection'>
             <div className='txnSection'></div>
-            <div className='txnSection'>
+            <form onSubmit={handleSubmit} className='txnSection'>
 
                 <div className='txnSection-cards-container'>
                     <div className='txnSection-card'>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <FaEthereum className='FaEthereum' color={'#d3d3d3'} />
                             <div
-                                style={{ color: (sender_ethAccounts === undefined) && '#d3d3d3' }}
+                                style={{ color: (sender_ethAccount === undefined) && '#d3d3d3' }}
                                 className='txnSection-card-account'>
-                                {TextAbstract(sender_ethAccounts, 27)}
-                                {(sender_ethAccounts === undefined) && '0x00000000000000000000'}
+                                {TextAbstract(sender_ethAccount, 27)}
+                                {(sender_ethAccount === undefined) && '0x00000000000000000000'}
                             </div>
                         </div>
                         <div className='txnSection-card-name'>
@@ -90,23 +95,23 @@ const TxnSection = ({ ...props }) => {
                     <input
                         disabled
                         name='fromAddress'
-                        value={sender_ethAccounts}
+                        value={sender_ethAccount}
                         className='input-txn'
                         placeholder='0x00000000000000000000' />
                     {copyReceiverAddress === false ?
                         <FiCopy
                             onClick={() => {
                                 setCopyReceiverAddress(true)
-                                copyToClipboard(sender_ethAccounts)
+                                copyToClipboard(sender_ethAccount)
                             }}
                             className='copy-icon'
                             size={20}
-                            color={sender_ethAccounts === undefined ? '#d3d3d3' : '#fff'} />
+                            color={sender_ethAccount === undefined ? '#d3d3d3' : '#fff'} />
                         :
                         <AiFillCheckCircle
                             onClick={() => {
                                 setCopyReceiverAddress(true)
-                                copyToClipboard(sender_ethAccounts)
+                                copyToClipboard(sender_ethAccount)
                             }}
                             className='copy-icon'
                             size={25}
@@ -153,18 +158,31 @@ const TxnSection = ({ ...props }) => {
                         <input
                             onKeyPress={(e) => onlyNumberHandler(e)}
                             maxLength={15}
-                            value={ethAmount}
-                            onChange={onChangeEthAmount}
+                            name='ethAmount'
+                            step='0.0001'
+                            type='number'
+                            value={inputData.ethAmount}
+                            onChange={(e) => handleChange(e, 'ethAmount')}
                             className='input-txn'
                             placeholder='1' />
                     </div>
 
-                    <button className='txn-send-btn'>
-                        <RiSendPlaneFill color='#fff' size={25} />
+                    <button
+                        disabled={
+                            isLoading === false && checkFormValidity() === true
+                                ? false : true}
+                        type='submit'
+                        className='txn-send-btn'>
+                        <RiSendPlaneFill
+                            color={checkFormValidity() === false ? '#d5d5d5' : '#fff'}
+                            size={25} />
                     </button>
+                    {isLoading &&
+                        <div className='txn-sending'>Sending ...</div>
+                    }
                 </div>
 
-            </div>
+            </form>
         </div>
     )
 }

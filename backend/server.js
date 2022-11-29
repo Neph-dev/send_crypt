@@ -3,14 +3,14 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const usersRouter = require('./routes/users')
 const authenticationRouter = require('./routes/authentication')
-const txnRouter = require('./routes/txn')
+const transactionsRouter = require('./routes/transactions')
 const avatarsRouter = require('./routes/avatars')
 
 // Load .env file
 require('dotenv').config()
 
 const app = express()
-const port = process.env.PORT
+const port = 4000
 
 app.use(cors())
 app.use(express.json())
@@ -23,8 +23,8 @@ connection.once('open', () => console.log('Connection to MongoDB established suc
 // Define Routes
 app.use('/users', usersRouter)
 app.use('/authentication', authenticationRouter)
-app.use('/txn', txnRouter)
 app.use('/avatars', avatarsRouter)
+app.use('/transactions', transactionsRouter)
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`))
 
