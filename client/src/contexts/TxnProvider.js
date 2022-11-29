@@ -1,9 +1,18 @@
 import { createContext, useState } from 'react'
-// import { ethers } from "ethers"
+import { ethers } from 'ethers'
+import { contractAddress, contractABI } from '../utils/constants'
 
 export const TxnContext = createContext()
 
 const { ethereum } = window
+
+const ethereumContract = () => {
+    const provider = new ethers.providers.Web3Provider(ethereum)
+    const signer = provider.getSigner()
+    const txnContract = new ethers.Contract(contractAddress, contractABI, signer)
+
+    return txnContract
+}
 
 export const TxnProvider = ({ children }) => {
 
@@ -22,12 +31,19 @@ export const TxnProvider = ({ children }) => {
 
             window.location.reload()
         }
-        else alert("Please install MetaMask.")
+        else alert('Install MetaMask.')
     }
 
     const disconnectWallet = async () => {
         localStorage.removeItem('eth_requestAccounts')
         window.location.reload()
+    }
+
+    const sendTransaction = async () => {
+        if (typeof ethereum !== 'undefined') {
+            localStorage.getItem('eth_requestAccounts')
+        }
+        else alert('Install MetaMask.')
     }
 
     return (

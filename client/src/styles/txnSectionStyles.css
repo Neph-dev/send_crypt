@@ -1,8 +1,10 @@
 #txnSection {
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     display: flex;
-    width: 100%;
+    flex-wrap: wrap;
+
+    width: 90%;
 
     -webkit-user-select: none;
     -webkit-touch-callout: none;
@@ -11,11 +13,14 @@
     user-select: none;
 }
 
+.txnSection {
+    width: 50%;
+}
+
 .txnSection-cards-container {
     align-items: center;
     display: flex;
     justify-content: space-between;
-    width: 100;
 }
 
 .txnSection-card {
@@ -36,6 +41,11 @@
 
     height: 150px;
     width: 245px;
+}
+
+.FaEthereum {
+    height: 50px;
+    width: 50px;
 }
 
 .txnSection-card-account {
@@ -118,4 +128,24 @@
 
 .btn-label {
     color: #fff
+}
+
+@media only screen and (max-width: 1090px) {
+    #txnSection {
+        align-items: center;
+        justify-content: center;
+        display: flex;
+
+        width: 100%;
+
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .txnSection {
+        width: 90%;
+    }
 }

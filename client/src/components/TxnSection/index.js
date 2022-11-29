@@ -43,12 +43,13 @@ const TxnSection = ({ ...props }) => {
 
     return (
         <div id='txnSection'>
-            <div style={{ width: '60%' }}>
+            <div className='txnSection'></div>
+            <div className='txnSection'>
 
                 <div className='txnSection-cards-container'>
                     <div className='txnSection-card'>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <FaEthereum size={50} color={'#d3d3d3'} />
+                            <FaEthereum className='FaEthereum' color={'#d3d3d3'} />
                             <div
                                 style={{ color: (sender_ethAccounts === undefined) && '#d3d3d3' }}
                                 className='txnSection-card-account'>
@@ -65,7 +66,7 @@ const TxnSection = ({ ...props }) => {
 
                     <div className='txnSection-card' style={{ backgroundColor: '#1b1b1b' }}>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <FaEthereum size={50} color={'#d3d3d3'} />
+                            <FaEthereum className='FaEthereum' color={'#d3d3d3'} />
                             <div className='txnSection-card-account'>
                                 {TextAbstract(receiver_ethAddress, 30)}
                             </div>
