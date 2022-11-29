@@ -28,7 +28,7 @@
     left: 0;
     right: 0;
     text-align: center;
-    width: 20%;
+    width: 19%;
 }
 
 .trx-history-ele-container {
@@ -48,6 +48,10 @@
     user-select: none;
 }
 
+.trx-history-ele-container:hover {
+    background-color: #252525
+}
+
 .trx-history-ele {
     align-items: center;
     background-color: transparent;
@@ -61,7 +65,7 @@
     left: 0;
     right: 0;
     text-align: center;
-    width: 20%;
+    width: 19%;
 }
 
 .trx-history-ele-from-container {
@@ -75,7 +79,7 @@
     left: 0;
     right: 0;
     text-align: center;
-    width: 20%;
+    width: 19%;
 }
 
 .trx-history-ele-from {

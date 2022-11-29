@@ -23,6 +23,7 @@ export const TxnProvider = ({ children }) => {
     const [inputData, setInputData] = useState({ ethAmount: '', message: 'Test msg' })
     const [connectionPending, setConnectionPending] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const [transactions, setTransactions] = useState([])
 
     let d = new Date()
     let date = d.getUTCDate()
@@ -34,6 +35,14 @@ export const TxnProvider = ({ children }) => {
 
     const handleChange = (e, name) => {
         setInputData((prevState) => ({ ...prevState, [name]: e.target.value }))
+    }
+
+    const getTransactionHistory = async () => {
+        await axios.get(`${API_URL}transactions`)
+            .then((response) => {
+                setTransactions(response?.data?.data?.transactions)
+            })
+            .catch((error) => { console.log(error) })
     }
 
     const connectWallet = async () => {
@@ -100,6 +109,7 @@ export const TxnProvider = ({ children }) => {
                 await axios.post(`${API_URL}transactions/add`, data)
                     .then(async (response) => {
                         console.log(response)
+                        getTransactionHistory()
                     })
                     .catch((error) => { console.log(error) })
 
@@ -127,6 +137,8 @@ export const TxnProvider = ({ children }) => {
                 handleChange,
                 sendTxn,
                 isLoading,
+                getTransactionHistory,
+                transactions,
             }}>
             {children}
         </TxnContext.Provider>
