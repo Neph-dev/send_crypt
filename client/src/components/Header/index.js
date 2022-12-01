@@ -18,7 +18,7 @@ const Header = () => {
 
     return (
         <div id='header'>
-            <div className='header-container'>
+            <div onClick={() => navigate('/account')} className='header-container'>
                 <img
                     src={userAvatar}
                     alt='avatar'

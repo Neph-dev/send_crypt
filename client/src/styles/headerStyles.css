@@ -17,6 +17,7 @@
     justify-content: flex-start;
     padding-top: 20px;
     padding-left: 20px;
+    cursor: pointer;
 }
 
 .header-avatar {
@@ -31,6 +32,10 @@
     font-size: 14px;
     color: #fff;
     margin-left: 10px;
+}
+
+.header-username:hover {
+    color: #b2beb5
 }
 
 .header-connect-btn {

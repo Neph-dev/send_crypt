@@ -60,6 +60,23 @@ router.route('/getAdmin').get((req, res) => {
         })
 })
 
+router.route('/:id').get((req, res) => {
+    User.findOne({ _id: req.params.id })
+        .then((user) => {
+            res.status(200).json({
+                success: true,
+                status: 200,
+                data: { user }
+            })
+        })
+        .catch((err) => {
+            res.status(err.status).json({
+                success: false,
+                message: err
+            })
+        })
+})
+
 // * Every user name has to start with 'NF_',
 // * Check that this condition is true.
 // * Then, generate a password.

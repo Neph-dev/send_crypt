@@ -1,0 +1,52 @@
+#account {
+    align-items: center;
+    background: #36454f;
+    display: flex;
+    flex-wrap: wrap;
+    height: 100vh;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.account-back-btn {
+    position: absolute;
+    top: 20px;
+    left: 15px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.account-back-btn:hover {
+    color: #b2beb5;
+}
+
+.change-avatar-save-btn {
+    align-items: center;
+    background: #b2beb5;
+    border: 0;
+    border-radius: 10px;
+    color: #3b3c36;
+    display: flex;
+    font-size: 16px;
+    height: 30px;
+    justify-content: center;
+    margin-right: 20px;
+}
+
+.change-avatar-save-btn:hover {
+    background: #3b3c36;
+    color: #b2beb5;
+}
+
+.account-input {
+    background: transparent;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: transparent;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    outline: none;
+    width: 70%;
+}
