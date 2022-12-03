@@ -15,6 +15,16 @@ const userSchema = new Schema({
         required: true,
         unique: true,
     },
+    emailVerified: {
+        type: Boolean,
+        required: true,
+    },
+    emailPending: {
+        type: String,
+    },
+    verificationCode: {
+        type: String,
+    },
     avatar: {
         type: String,
         required: true,

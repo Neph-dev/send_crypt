@@ -84,7 +84,11 @@ router.route('/:id').get((req, res) => {
 // * Send the generated password to the user's email address.
 router.route('/add').post((req, res) => {
 
-    const plainTextPassword = generator.generate({ length: 10, numbers: true })
+    const plainTextPassword = generator.generate({
+        length: 15,
+        numbers: true,
+        strict: true
+    })
     const saltRounds = 10
 
     bcrypt.hash(plainTextPassword, saltRounds)
@@ -95,9 +99,22 @@ router.route('/add').post((req, res) => {
             const email = req.body.email
             const status = 1
             const admin = false
+            const emailVerified = true
+            const emailPending = null
+            const verificationCode = null
             const ethAddress = req.body.ethAddress
 
-            const newUser = new User({ username, avatar, email, status, admin, ethAddress })
+            const newUser = new User({
+                username,
+                avatar,
+                email,
+                status,
+                admin,
+                ethAddress,
+                emailVerified,
+                emailPending,
+                verificationCode,
+            })
 
             newUser.save()
                 .then((user) => {
@@ -120,7 +137,6 @@ router.route('/add').post((req, res) => {
                             res.status(200).json({
                                 success: true,
                                 status: 200,
-                                data: { user }
                             })
                         })
                         .catch((err) => {
@@ -142,19 +158,24 @@ router.route('/add').post((req, res) => {
 router.route('/update-avatar/:id').post((req, res) => {
     User.findById(req.params.id)
         .then((user) => {
+
             user.username = user.username
             user.avatar = req.body.avatar
             user.email = user.email
+            user.emailPending = user.emailPending
+            user.emailVerified = user.emailVerified
+            user.verificationCode = user.verificationCode
             user.status = user.status
             user.admin = user.admin
             user.ethAddress = user.ethAddress
 
             user.save()
-                .then(() => {
+                .then((userAvatar) => {
                     res.status(200).json({
                         success: true,
                         status: 200,
-                        message: 'Avatar Successfully changed'
+                        message: 'Avatar Successfully changed',
+                        data: { userAvatar }
                     })
                 })
                 .catch((err) => {
@@ -165,31 +186,91 @@ router.route('/update-avatar/:id').post((req, res) => {
                 })
         })
 })
-
+// NF_BLOOD_TH1RSTY
 router.route('/update-email/:id').post((req, res) => {
+
+    const generatedCode = generator.generate({ length: 5, numbers: true })
+
     User.findById(req.params.id)
         .then((user) => {
             user.username = user.username
             user.avatar = user.avatar
             user.email = req.body.email
+            user.emailPending = req.body.email
+            user.emailVerified = false
+            user.verificationCode = generatedCode.toUpperCase()
             user.status = user.status
             user.admin = user.admin
             user.ethAddress = user.ethAddress
 
             user.save()
                 .then(() => {
+                    // Send Email with code to the user's email
+                    transporter.sendMail({
+                        from: fromEmail,
+                        to: req.body.email.toLowerCase(),
+                        subject: 'VERIFY YOUR EMAIL',
+                        text: `CODE: ${generatedCode.toUpperCase()}`,
+                    })
+                        .then(() => { console.log('Email sent!') })
+                        .catch((err) => { console.log('Email not sent!', err) })
+
                     res.status(200).json({
                         success: true,
                         status: 200,
-                        message: 'Email Successfully changed'
+                        message: 'Email pending for verification'
                     })
                 })
                 .catch((err) => {
-                    res.status(err.status).json({
+                    res.status(400).json({
                         success: false,
                         message: err
                     })
                 })
+        })
+})
+
+router.route('/verify-email/:id').post((req, res) => {
+    User.findById(req.params.id)
+        .then((user) => {
+            if (user.verificationCode === req.body.verificationCode) {
+                user.username = user.username
+                user.avatar = user.avatar
+                user.email = req.body.email
+                user.emailPending = null
+                user.emailVerified = true
+                user.verificationCode = null
+                user.status = user.status
+                user.admin = user.admin
+                user.ethAddress = user.ethAddress
+
+                user.save()
+                    .then(() => {
+                        res.status(200).json({
+                            success: true,
+                            status: 200,
+                            message: 'Email verified.'
+                        })
+                    })
+                    .catch((err) => {
+                        res.status(400).json({
+                            success: false,
+                            message: err
+                        })
+                    })
+            }
+            else {
+                res.status(400).json({
+                    success: false,
+                    message: "Verification code is not valid."
+                })
+            }
+        })
+        .catch((err) => {
+            res.status(400).json({
+                success: false,
+                message: err
+            })
         })
 })
 

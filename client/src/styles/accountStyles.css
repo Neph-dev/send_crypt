@@ -50,3 +50,22 @@
     outline: none;
     width: 70%;
 }
+
+.account-verification-btn {
+    border: 0px;
+    background: transparent;
+    color: #5d8aa8;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.account-verification-btn:hover {
+    color: #86C5DA;
+    text-decoration: underline;
+}
+
+.account-title {
+    color: #b2beb5;
+    font-size: 18px;
+    font-weight: bold;
+}

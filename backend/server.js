@@ -5,6 +5,7 @@ const usersRouter = require('./routes/users')
 const authenticationRouter = require('./routes/authentication')
 const transactionsRouter = require('./routes/transactions')
 const avatarsRouter = require('./routes/avatars')
+const passwordsRouter = require('./routes/passwords')
 
 // Load .env file
 require('dotenv').config()
@@ -25,6 +26,7 @@ app.use('/users', usersRouter)
 app.use('/authentication', authenticationRouter)
 app.use('/avatars', avatarsRouter)
 app.use('/transactions', transactionsRouter)
+app.use('/password', passwordsRouter)
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`))
 
