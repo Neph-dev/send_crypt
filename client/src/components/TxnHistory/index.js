@@ -100,52 +100,66 @@ const TxnHistory = () => {
                 <div className='small-separator' />
 
                 <div className='trx-history-ele-container-title'>
+                    <div className='trx-history-ele-title'>Hash</div>
                     <div className='trx-history-ele-title'>From</div>
                     <div className='trx-history-ele-title'>To</div>
-                    <div className='trx-history-ele-title'>Username</div>
                     <div className='trx-history-ele-title'>Sent Amount</div>
                     <div className='trx-history-ele-title'>Msg</div>
                     <div style={{ width: '5%' }}></div>
                 </div>
-                {filterHistory.map((item, index) => (
-                    <div key={index}
-                        className='trx-history-ele-container'>
-                        <div className='trx-history-ele-from-container'>
-                            <a
-                                rel="noreferrer"
-                                href={`${goerliEtherscan_BaseURL}/${item.hash}`}
-                                target='_blank'
-                                className='trx-history-ele-from' >
-                                {TextAbstract(item.from, 20)}
-                            </a>
-                            <FiCopy
-                                className='copy-icon'
-                                onClick={() => copy(item.from)}
-                                size={20}
-                                color='#fff' />
-                        </div>
-                        <div className='trx-history-ele'>
-                            {TextAbstract(item.to, 20)}
-                            <FiCopy
-                                className='copy-icon'
-                                onClick={() => copy(item.to)}
-                                size={20}
-                                color='#fff' />
-                        </div>
-                        <div className='trx-history-ele'>Not Found</div>
-                        <div className='trx-history-ele'>{item.amount}</div>
-                        <div className='trx-history-ele'>{TextAbstract(item.message, 20)}</div>
-
-                        <div
-                            onClick={() => onShowModal(item)}
-                            style={{ width: '5%', cursor: 'pointer' }}>
-                            <MdNavigateNext
-                                size={20}
-                                color='#fff' />
-                        </div>
-
+                {filterHistory.length === 0 ?
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+                        <div className='txn-sending'> Loading...</div>
                     </div>
-                ))}
+
+                    :
+
+                    filterHistory.map((item, index) => (
+                        <div key={index}
+                            className='trx-history-ele-container'>
+                            <div className='trx-history-ele-from-container'>
+                                <a
+                                    rel="noreferrer"
+                                    href={`${goerliEtherscan_BaseURL}/${item.hash}`}
+                                    target='_blank'
+                                    className='trx-history-ele-from' >
+                                    {TextAbstract(item.hash, 20)}
+                                </a>
+                                <FiCopy
+                                    className='copy-icon'
+                                    onClick={() => copy(item.hash)}
+                                    size={20}
+                                    color='#fff' />
+                            </div>
+                            <div className='trx-history-ele'>
+                                {TextAbstract(item.from, 20)}
+                                <FiCopy
+                                    className='copy-icon'
+                                    onClick={() => copy(item.from)}
+                                    size={20}
+                                    color='#fff' />
+                            </div>
+                            <div className='trx-history-ele'>
+                                {TextAbstract(item.to, 20)}
+                                <FiCopy
+                                    className='copy-icon'
+                                    onClick={() => copy(item.to)}
+                                    size={20}
+                                    color='#fff' />
+                            </div>
+                            <div className='trx-history-ele'>{item.amount}</div>
+                            <div className='trx-history-ele'>{TextAbstract(item.message, 20)}</div>
+
+                            <div
+                                onClick={() => onShowModal(item)}
+                                style={{ width: '5%', cursor: 'pointer' }}>
+                                <MdNavigateNext
+                                    size={20}
+                                    color='#fff' />
+                            </div>
+
+                        </div>
+                    ))}
             </section>
         </>
     )

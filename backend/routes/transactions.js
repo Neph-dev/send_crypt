@@ -1,5 +1,4 @@
 const router = require('express').Router()
-
 let Transaction = require('../models/transaction.model')
 
 

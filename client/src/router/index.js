@@ -1,6 +1,6 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { Login, Main, RegisterUser, SuccessReg, Account } from '../pages'
+import { Login, Main, RegisterUser, SuccessReg, Account, Chat } from '../pages'
 
 
 const Router = () => {
@@ -11,6 +11,7 @@ const Router = () => {
             <Route path='/main' element={<Main />} />
             <Route path='/account' element={<Account />} />
             <Route path='/success' element={<SuccessReg />} />
+            <Route path='/chat' element={<Chat />} />
         </Routes>
     )
 }

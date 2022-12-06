@@ -23,6 +23,8 @@ const Main = () => {
         // eslint-disable-next-line
     }, [])
 
+    const page = 'main'
+
     return (
         <div id='main-page'>
 
@@ -31,7 +33,7 @@ const Main = () => {
                 <link rel="icon" href={show} />
             </Helmet>
 
-            <Header />
+            <Header page={page} />
 
             <div className='medium-separator' />
             <div className='medium-separator' />

@@ -59,11 +59,11 @@
     user-select: none;
 }
 
-.header-logoff {
+.header-icon {
     margin-right: 20px;
     transition: transform .2s;
 }
 
-.header-logoff:hover {
+.header-icon:hover {
     transform: scale(1.1);
 }

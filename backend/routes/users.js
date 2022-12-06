@@ -186,7 +186,7 @@ router.route('/update-avatar/:id').post((req, res) => {
                 })
         })
 })
-// NF_BLOOD_TH1RSTY
+
 router.route('/update-email/:id').post((req, res) => {
 
     const generatedCode = generator.generate({ length: 5, numbers: true })
