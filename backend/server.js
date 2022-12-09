@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
+const cookieParser = require('cookie-parser')
 const usersRouter = require('./routes/users')
 const authenticationRouter = require('./routes/authentication')
 const transactionsRouter = require('./routes/transactions')
@@ -13,8 +14,13 @@ require('dotenv').config()
 const app = express()
 const port = 4000
 
-app.use(cors())
+app.use(cors({
+    origin: ['http://localhost:3000'],
+    method: ['GET', 'POST'],
+    credentials: true
+}))
 app.use(express.json())
+app.use(cookieParser())
 
 const uri = process.env.ATLAS_URI
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })

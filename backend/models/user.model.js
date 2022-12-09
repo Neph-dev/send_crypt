@@ -5,14 +5,14 @@ const Schema = mongoose.Schema
 const userSchema = new Schema({
     username: {
         type: String,
-        required: true,
+        required: [true, "Username is required"],
         unique: true,
         trim: true,
         minLength: 3,
     },
     email: {
         type: String,
-        required: true,
+        required: [true, "Email is required"],
         unique: true,
     },
     emailVerified: {
@@ -27,7 +27,7 @@ const userSchema = new Schema({
     },
     avatar: {
         type: String,
-        required: true,
+        required: [true, "Avatar is required"],
     },
     // 0 means suspended, 1 means active
     status: {

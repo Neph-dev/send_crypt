@@ -11,25 +11,16 @@ router.route('/update-password/:id').post((req, res) => {
                     if (result === true) {
                         const saltRounds = 10
 
-                        bcrypt.hash(req.body.newPassword, saltRounds)
-                            .then((hash) => {
-                                password.owner = password.owner
-                                password.password = hash
+                        password.owner = password.owner
+                        password.password = req.body.newPassword
 
-                                // On succeed, add hashed password to the DB
-                                password.save()
-                                    .then(() => {
-                                        res.status(200).json({
-                                            success: true,
-                                            status: 200,
-                                        })
-                                    })
-                                    .catch((err) => {
-                                        res.status(400).json({
-                                            success: false,
-                                            message: err
-                                        })
-                                    })
+                        // On succeed, add hashed password to the DB
+                        password.save()
+                            .then(() => {
+                                res.status(200).json({
+                                    success: true,
+                                    status: 200,
+                                })
                             })
                             .catch((err) => {
                                 res.status(400).json({

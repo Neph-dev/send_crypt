@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 import { TxnContext } from '../../contexts/TxnProvider'
 
@@ -16,6 +17,11 @@ const Header = ({ ...props }) => {
     const userAvatar = localStorage.getItem('user_avatar')
     const receiver_ethAddress = localStorage.getItem('eth_requestAccounts')
     const navigate = useNavigate()
+
+    const handleLogout = () => {
+        navigate('/')
+        Cookies.remove('sijwt')
+    }
 
     return (
         <div id='header'>
@@ -61,7 +67,7 @@ const Header = ({ ...props }) => {
                 }
 
                 <FaPowerOff
-                    onClick={() => navigate('/')}
+                    onClick={handleLogout}
                     size={25}
                     color={'#fff'}
                     className='header-icon' />

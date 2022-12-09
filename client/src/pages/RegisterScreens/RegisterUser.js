@@ -20,11 +20,11 @@ const RegisterUser = () => {
 
     useEffect(() => {
         localStorage.clear()
-        axios.get(`${API_URL}avatars`)
+        axios.get(`${API_URL}avatars`, {}, { withCredentials: true })
             .then((response) => {
                 setButtonLoad(false)
-                setAvatars(response?.data?.data?.avatars)
-                setSelectedAvatar(response?.data?.data?.avatars[0].link)
+                setAvatars(response.data.data.avatars)
+                setSelectedAvatar(response.data.data.avatars[0].link)
             })
             .catch((error) => {
                 setButtonLoad(false)
@@ -44,12 +44,12 @@ const RegisterUser = () => {
 
         const data = {
             username: inputs.username,
-            email: inputs.email.toLowerCase(),
             avatar: selectedAvatar,
+            email: inputs.email.toLowerCase(),
             ethAddress: '',
         }
         setButtonLoad(true)
-        await axios.post(`${API_URL}users/add`, data)
+        await axios.post(`${API_URL}users/add`, data, { withCredentials: true })
             .then(() => {
                 setButtonLoad(false)
                 localStorage.setItem('email', inputs?.email.toLowerCase())

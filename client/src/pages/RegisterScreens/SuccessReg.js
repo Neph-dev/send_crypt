@@ -8,11 +8,14 @@ import { AiFillCheckCircle } from 'react-icons/ai'
 const SuccessReg = () => {
     const navigate = useNavigate()
 
-    const goToLogin = () => navigate("/")
+    const goToLogin = () => {
+        navigate("/")
+        localStorage.clear()
+    }
 
-    const email = 'SNEPHTHALI@GMAIL.COM'
-    const username = 'RENAGADE_ALPHA'
-    const avatar = 'https://i.postimg.cc/hj9SBHXF/ezgif-com-gif-maker.jpg'
+    const email = localStorage.getItem('email')
+    const username = localStorage.getItem('username')
+    const avatar = localStorage.getItem('selectedAvatar')
 
     return (
         <div id='registerUser'>
@@ -36,7 +39,7 @@ const SuccessReg = () => {
                         <input
                             name='username'
                             className='register-input'
-                            value={username}
+                            value={username.toUpperCase()}
                             disabled />
                     </div>
                     <div className='medium-separator' />
@@ -46,7 +49,7 @@ const SuccessReg = () => {
                         <input
                             name='email'
                             className='register-input'
-                            value={email}
+                            value={email.toUpperCase()}
                             style={{ marginLeft: 10 }}
                             disabled />
                     </div>
@@ -58,7 +61,7 @@ const SuccessReg = () => {
                             className='copy-icon'
                             size={30}
                             color={'#a4c639'} />
-                        We've sent your password to <b> {email.toLowerCase()}</b>
+                        We've sent your password to <b style={{ marginLeft: 10 }}>{email.toLowerCase()}</b>
                     </div>
 
                     <div className='medium-separator' />

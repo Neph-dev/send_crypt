@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 import axios from 'axios'
 import { API_URL } from '../../service/API_URL'
@@ -9,6 +10,7 @@ import '../../styles/globalStyles.css'
 import '../../styles/registerUserStyles.css'
 import '../../styles/accountStyles.css'
 import { BiArrowBack } from 'react-icons/bi'
+import { HiEye, HiEyeOff } from 'react-icons/hi'
 
 
 const Account = () => {
@@ -42,14 +44,15 @@ const Account = () => {
     const [isSavingAvatar, setIsSavingAvatar] = useState(false)
 
     useEffect(() => {
-        axios.get(`${API_URL}users/${user_id}`)
+        axios.post(`${API_URL}users/${user_id}`, {}, { withCredentials: true })
             .then((response) => {
-                setEmailVerified(response?.data?.data?.user?.emailVerified)
-                setSelectedAvatar(response?.data?.data?.user?.avatar)
+
+                setEmailVerified(response.data.data.emailVerified)
+                setSelectedAvatar(response.data.data.avatar)
                 setInputs({
                     ...inputs,
-                    email: response?.data?.data?.user?.email.toUpperCase(),
-                    username: response?.data?.data?.user?.username.toUpperCase(),
+                    email: response.data.data.email.toUpperCase(),
+                    username: response.data.data.username.toUpperCase(),
                 })
             })
             .catch((error) => console.error(error))
@@ -105,12 +108,14 @@ const Account = () => {
             })
     }
 
-    const updateAvatar = async () => {
+    const updateAvatar = async (e) => {
+        e.preventDefault()
         setIsSavingAvatar(true)
 
         const data = { avatar: selectedAvatar }
 
-        await axios.post(`${API_URL}users/update-avatar/${user_id}`, data)
+        await axios.post(`${API_URL}users/update-avatar/${user_id}`, data,
+            { withCredentials: true })
             .then(() => {
                 setIsSavingAvatar(false)
                 localStorage.setItem('user_avatar', selectedAvatar)
@@ -119,6 +124,10 @@ const Account = () => {
             .catch((error) => {
                 console.error(error)
                 setIsSavingAvatar(false)
+                if (error.response.status === 401) {
+                    navigate('/')
+                    Cookies.remove('sijwt')
+                }
             })
     }
 
@@ -129,7 +138,8 @@ const Account = () => {
         const data = { email: inputs.email.toLowerCase() }
 
         // update email address
-        await axios.post(`${API_URL}users/update-email/${user_id}`, data)
+        await axios.post(`${API_URL}users/update-email/${user_id}`, data,
+            { withCredentials: true })
             .then(() => {
                 setIsLoading(false)
                 setSuccessMessage({ ...inputs, updateEmail: 'Code sent' })
@@ -141,14 +151,17 @@ const Account = () => {
             })
     }
 
-    const verifyEmail = async () => {
+    const verifyEmail = async (e) => {
+        e.preventDefault()
+
         setIsLoading(true)
         const data = {
             email: inputs.email.toLowerCase(),
             verificationCode: inputs.verificationCode.toUpperCase()
         }
 
-        await axios.post(`${API_URL}users/verify-email/${user_id}`, data)
+        await axios.post(`${API_URL}users/verify-email/${user_id}`, data,
+            { withCredentials: true })
             .then(() => {
                 setIsLoading(false)
                 setSuccessMessage({ ...inputs, verifyEmail: 'Success' })
@@ -199,6 +212,15 @@ const Account = () => {
             (inputs.newPassword !== inputs.confirmPassword) ||
             !inputs.newPassword || !inputs.confirmPassword) return true
         else return false
+    }
+
+    function viewHidePassword(id) {
+        var x = document.getElementById(id);
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
     }
 
     return (
@@ -355,41 +377,58 @@ const Account = () => {
                                 <div className='small-separator' />
 
                                 <div className='register-input-container'>
-                                    <div className='register-input-label'>OLD PASSWORD_</div>
+                                    <div className='register-input-label' style={{ width: '30%' }}>
+                                        OLD PASSWORD_
+                                    </div>
                                     <input
+                                        type='password'
                                         name='password'
                                         value={inputs.oldPassword}
                                         onChange={handleChangeOldPassword}
                                         className='account-input'
+                                        id='oldPassword'
                                         style={{ marginLeft: 10 }}
                                         placeholder='Old password' />
+                                    <HiEye color='#fff' size={25} onClick={() => viewHidePassword('oldPassword')} />
                                 </div>
                                 <div className='medium-separator' />
 
                                 <div className='register-input-container'>
-                                    <div className='register-input-label'>NEW PASSWORD_</div>
+                                    <div className='register-input-label' style={{ width: '30%' }}>
+                                        NEW PASSWORD_
+                                    </div>
                                     <input
+                                        type='password'
                                         name='password'
                                         value={inputs.newPassword}
                                         onChange={handleChangeNewPassword}
                                         className='account-input'
+                                        id='newPassword'
                                         style={{ marginLeft: 10 }}
                                         placeholder='New password' />
+                                    <HiEye color='#fff' size={25} onClick={() => viewHidePassword('newPassword')} />
                                 </div>
                                 <div className='medium-separator' />
 
                                 <div className='register-input-container'>
                                     <div className='register-input-label'
-                                        style={{ width: '40%' }}>
+                                        style={{ width: '50%' }}>
                                         CONFIRM PASSWORD_
                                     </div>
                                     <input
+                                        type='password'
                                         name='confirmPassword'
                                         value={inputs.confirmPassword}
                                         onChange={handleChangeConfirmPassword}
                                         className='account-input'
+                                        id='confirm'
                                         style={{ marginLeft: 10 }}
                                         placeholder='Confirm new password' />
+
+                                    <HiEye
+                                        color='#fff'
+                                        size={25} onClick={() => viewHidePassword('confirm')} />
+
                                     {isLoading === true ?
                                         <div className='txn-sending'> Verifying...</div>
                                         :

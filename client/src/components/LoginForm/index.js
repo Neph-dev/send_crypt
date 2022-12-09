@@ -37,7 +37,7 @@ const LoginForm = () => {
             username: inputs.username,
             password: inputs.password
         }
-        await axios.post(`${API_URL}authentication/login`, data)
+        await axios.post(`${API_URL}authentication/login`, data, { withCredentials: true })
             .then(async (response) => {
                 setButtonLoad(false)
                 if (response.data?.success === true) {
@@ -45,9 +45,8 @@ const LoginForm = () => {
                     localStorage.setItem('user_avatar', response?.data?.data?.user?.avatar)
                     localStorage.setItem('username', response?.data?.data?.user?.username)
 
-                    await axios.get(`${API_URL}users/getAdmin`)
+                    await axios.get(`${API_URL}users/getAdmin`, {}, { withCredentials: true })
                         .then((response) => {
-                            console.log(response)
                             localStorage.setItem('admin_ethAddress', response?.data?.data?.adminEthAddress)
                             localStorage.setItem('admin_username', response?.data?.data?.adminUsername)
                             navigate('main')
@@ -57,7 +56,7 @@ const LoginForm = () => {
                 else setLoginFailedMsg(response?.data?.message)
             })
             .catch((error) => {
-                setLoginFailedMsg(error.message)
+                setLoginFailedMsg(error.response.data.message)
                 console.error(error)
                 setButtonLoad(false)
             })

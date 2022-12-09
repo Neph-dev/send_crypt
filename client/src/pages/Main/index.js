@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React from 'react'
 import { Helmet } from 'react-helmet-async'
 
 import '../../styles/mainPageStyles.css'
@@ -13,15 +12,8 @@ import TxnHistory from '../../components/TxnHistory'
 
 const Main = () => {
 
-    const navigate = useNavigate()
-
     const username = localStorage.getItem('username')
     const adminUsername = localStorage.getItem('admin_username')
-
-    useEffect(() => {
-        if (username === null || username === undefined) navigate('/')
-        // eslint-disable-next-line
-    }, [])
 
     const page = 'main'
 

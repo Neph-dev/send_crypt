@@ -1,8 +1,9 @@
-import { createContext, useState } from 'react'
+import { createContext, useState, useContext } from 'react'
 import { ethers } from 'ethers'
 
 import axios from 'axios'
 import { API_URL } from '../service/API_URL'
+import { GetUserContext } from './GetUserProvider'
 
 import { contractAddress, contractABI } from '../utils/constants'
 
@@ -19,6 +20,8 @@ const ethereumContract = () => {
 }
 
 export const TxnProvider = ({ children }) => {
+
+    const { userData } = useContext(GetUserContext)
 
     const [inputData, setInputData] = useState({ ethAmount: '', message: 'Test msg' })
     const [connectionPending, setConnectionPending] = useState(false)
@@ -69,7 +72,6 @@ export const TxnProvider = ({ children }) => {
     const sendTxn = async () => {
         let sender_ethAccount = localStorage.getItem('eth_requestAccounts')
         let receiver_ethAddress = localStorage.getItem('admin_ethAddress')
-        const user_id = localStorage.getItem('user_id')
 
         try {
             if (typeof ethereum !== 'undefined') {
@@ -97,7 +99,7 @@ export const TxnProvider = ({ children }) => {
                 console.log(`Loading - ${txnHash.hash}`)
 
                 const data = {
-                    txnOwner: user_id,
+                    txnOwner: userData.user,
                     from: sender_ethAccount,
                     to: receiver_ethAddress,
                     amount: inputData.ethAmount,
@@ -107,10 +109,7 @@ export const TxnProvider = ({ children }) => {
                 }
 
                 await axios.post(`${API_URL}transactions/add`, data)
-                    .then(async (response) => {
-                        console.log(response)
-                        getTransactionHistory()
-                    })
+                    .then(() => getTransactionHistory())
                     .catch((error) => { console.log(error) })
 
                 await txnHash.wait()

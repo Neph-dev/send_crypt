@@ -2,6 +2,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 
 import { TxnProvider } from './contexts/TxnProvider'
+import { GetUserProvider } from './contexts/GetUserProvider'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css'
@@ -13,9 +14,11 @@ const App = () => {
   return (
     <BrowserRouter className='App'>
       <HelmetProvider>
-        <TxnProvider>
-          <Router />
-        </TxnProvider>
+        <GetUserProvider>
+          <TxnProvider>
+            <Router />
+          </TxnProvider>
+        </GetUserProvider>
       </HelmetProvider>
     </BrowserRouter>
   )
