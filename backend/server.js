@@ -15,8 +15,9 @@ const app = express()
 const port = 4000
 
 app.use(cors({
-    origin: ['http://localhost:3000'],
+    origin: ['http://localhost:3000', 'https://radiant-tulumba-95a459.netlify.app', 'https://i.postimg.cc'],
     method: ['GET', 'POST'],
+    Headers: 'Content-Type',
     credentials: true
 }))
 app.use(express.json())

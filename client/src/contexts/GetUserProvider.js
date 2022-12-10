@@ -30,6 +30,7 @@ export const GetUserProvider = ({ children }) => {
 
     useEffect(() => {
         if (cookie) getUserData()
+        // eslint-disable-next-line
     }, [])
 
     return (

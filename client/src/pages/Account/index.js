@@ -5,12 +5,11 @@ import Cookies from 'js-cookie'
 import axios from 'axios'
 import { API_URL } from '../../service/API_URL'
 
-// import Spinner from 'react-bootstrap/Spinner'
 import '../../styles/globalStyles.css'
 import '../../styles/registerUserStyles.css'
 import '../../styles/accountStyles.css'
 import { BiArrowBack } from 'react-icons/bi'
-import { HiEye, HiEyeOff } from 'react-icons/hi'
+import { HiEye } from 'react-icons/hi'
 
 
 const Account = () => {
@@ -39,7 +38,7 @@ const Account = () => {
     })
     const [emailVerified, setEmailVerified] = useState()
     const [avatars, setAvatars] = useState()
-    const [selectedAvatar, setSelectedAvatar] = useState()
+    const [selectedAvatar, setSelectedAvatar] = useState(user_avatar)
     const [isLoading, setIsLoading] = useState(false)
     const [isSavingAvatar, setIsSavingAvatar] = useState(false)
 
@@ -293,20 +292,18 @@ const Account = () => {
                                     <div className='register-input-label'>
                                         USERNAME_ <b style={{ color: '#b2beb5', marginLeft: 10 }}></b>
                                     </div>
-                                    <input
-                                        disabled
-                                        name='username'
-                                        className='account-input'
-                                        value={inputs.username}
-                                        placeholder='Type in a cool username'
-                                        maxLength={100}
-                                        autoFocus />
+                                    <div
+                                        className='account-input'>
+                                        {inputs.username}
+                                    </div>
                                 </div>
                                 <div className='medium-separator' />
 
                                 <div className='register-input-container'>
                                     <div className='register-input-label'>EMAIL_</div>
                                     <input
+                                        autoComplete="off"
+                                        type='email'
                                         name='email'
                                         value={inputs.email}
                                         className='account-input'
@@ -341,6 +338,7 @@ const Account = () => {
                                                 VERIFICATION CODE_
                                             </div>
                                             <input
+                                                autoComplete="off"
                                                 name='verificationCode'
                                                 value={inputs.verificationCode}
                                                 className='account-input'
@@ -381,6 +379,7 @@ const Account = () => {
                                         OLD PASSWORD_
                                     </div>
                                     <input
+                                        autoComplete="off"
                                         type='password'
                                         name='password'
                                         value={inputs.oldPassword}
@@ -398,6 +397,7 @@ const Account = () => {
                                         NEW PASSWORD_
                                     </div>
                                     <input
+                                        autoComplete="off"
                                         type='password'
                                         name='password'
                                         value={inputs.newPassword}
@@ -416,6 +416,7 @@ const Account = () => {
                                         CONFIRM PASSWORD_
                                     </div>
                                     <input
+                                        autoComplete="off"
                                         type='password'
                                         name='confirmPassword'
                                         value={inputs.confirmPassword}
